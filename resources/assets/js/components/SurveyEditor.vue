@@ -4,7 +4,7 @@
             <v-btn icon class="mb-3" @click.native = "$router.push({name: 'home'})">
                 <v-icon large>home</v-icon>
             </v-btn>
-            <v-toolbar-title @click.prevent="nameField = true" v-if="!nameField">{{surveyName}}</v-toolbar-title>
+            <v-toolbar-title @click.prevent="nameField = true" v-if="!nameField">{{surveyName}} {{$router.push({name: 'home'})}}</v-toolbar-title>
             <v-flex xs4 v-else>
                 <v-spacer></v-spacer>
                 <v-text-field
