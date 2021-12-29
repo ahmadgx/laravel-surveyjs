@@ -4,7 +4,8 @@
             <v-btn icon class="mb-3" @click.native = "$router.push({name: 'home'})">
                 <v-icon large>home</v-icon>
             </v-btn>
-            <v-toolbar-title @click.prevent="nameField = true" v-if="!nameField">{{surveyName}} {{$router.push({name: 'home'})}}</v-toolbar-title>
+            <v-toolbar-title @click.prevent="nameField = true" v-if="!nameField">{{surveyName}}</v-toolbar-title>
+
             <v-flex xs4 v-else>
                 <v-spacer></v-spacer>
                 <v-text-field
@@ -20,7 +21,11 @@
                 <v-btn small flat color="warning" @click.prevent="onCancelEdit">Cancel</v-btn>
             </v-toolbar-items>
         </v-toolbar>
+
+
         <survey-builder :json="survey.json" :id="survey.id" v-if="Object.keys(survey).length"></survey-builder>
+
+        <a :href="surveySlug" target="_blank"> {{surveySlug}}</a>
     </div>
 </template>
 
@@ -35,6 +40,7 @@
             return {
                 survey: {},
                 surveyName: '',
+                surveySlug: '',
                 nameField: false,
 
             }
@@ -48,6 +54,9 @@
                     .then((response) => {
                         this.survey = response.data.data;
                         this.surveyName = response.data.data.name;
+                        //this.surveySlug = this.$router.toPath('/' + SurveyConfig.route_prefix + '/' + response.data.data.slug);
+                        var path_show = new URL(location.href);
+                        this.surveySlug = path_show.origin + '/' + SurveyConfig.route_prefix + '/' + response.data.data.slug;
                     })
                     .catch((error) => {
                         console.log(error.response)
@@ -67,7 +76,7 @@
                     .catch((error) => {
                         console.error(error.response);
                     })
-            }
+            },
         }
     }
 </script>

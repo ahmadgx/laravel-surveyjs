@@ -30,14 +30,53 @@
         props: ['surveyData'],
         data () {
             return {
-                survey: {}
+                survey: {},
+                attach: []
             }
         },
         created () {
             this.survey = new SurveyVue.Model(this.surveyData.json)
         },
         mounted () {
+
+
+            this.survey.onUploadFiles
+                .add(function (survey, options) {
+                    options
+                        .files
+                        .forEach(function (file) {
+                            var formData = new FormData();
+                            formData.append("file", file);
+                            $.ajax({
+                                url: `/survey/uploadFile`,
+                                type: "POST",
+                                success: function (data) {
+                                    var content = data.replace('dxsfile:', 'https://api.surveyjs.io/public/v1/Survey/file?filePath=');
+                                    if (data.indexOf("dxsimage:") === 0) {
+                                        content = data.replace('dxsimage:', 'https://api.surveyjs.io/public/v1/Survey/file?filePath=');
+                                    }
+                                    options.callback("success", [
+                                        {
+                                            file: file,
+                                            content: content
+                                        }
+                                    ]);
+                                },
+                                error: function (error) {},
+                                async: true,
+                                data: formData,
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                timeout: 60000
+                            });
+                        });
+                });
+
+
+
             this.survey.onComplete.add((result) => {
+                // console.log(result)
                 let url = `/survey/${this.surveyData.id}/result`
                 axios.post(url, {json: result.data})
                     .then((response) => {

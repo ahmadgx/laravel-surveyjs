@@ -42,4 +42,25 @@ class SurveyResultAPIController extends Controller
             'message'   =>  'Survey Result successfully created',
         ], 201);
     }
+
+    public function uploadFile(Request $request){
+        $request->validate([
+            'file' => 'required|mimes:png,jpg,jpeg,csv,txt,xlx,xls,pdf|max:2048'
+        ]);
+
+        if($request->file()) {
+            $name = time().'_'.$request->file->getClientOriginalName();
+            $filePath = $request->file('file')->storeAs('uploads/user_profile', $name, 'public');
+            $name = '/storage/' . $filePath;
+
+            return response()->json([
+                'data'      =>  $name,
+                'message'   =>  'File successfully saved',
+            ], 201);
+        }
+
+        return response()->json([
+            'data'      =>  '',
+        ], 500);
+    }
 }
