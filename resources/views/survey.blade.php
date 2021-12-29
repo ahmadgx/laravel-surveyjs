@@ -33,7 +33,7 @@
     <script>
         window.SurveyConfig = {!! json_encode(config('survey-manager')) !!};
     </script>
-
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="{{ asset('vendor/survey-manager/js/survey-front.js') }}"></script>
 </body>
 </html>

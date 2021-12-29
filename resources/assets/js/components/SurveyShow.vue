@@ -51,6 +51,7 @@
                                 url: `/survey/uploadFile`,
                                 type: "POST",
                                 success: function (data) {
+                                    console.log(data);
                                     var content = data.replace('dxsfile:', 'https://api.surveyjs.io/public/v1/Survey/file?filePath=');
                                     if (data.indexOf("dxsimage:") === 0) {
                                         content = data.replace('dxsimage:', 'https://api.surveyjs.io/public/v1/Survey/file?filePath=');

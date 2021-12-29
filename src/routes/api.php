@@ -11,6 +11,6 @@ Route::group(
             'index', 'store', 'update', 'destroy', 'show',
         ]]);
         Route::resource('/survey/{survey}/result', 'SurveyResultAPIController');
-        Route::post('/survey/uploadFile', 'SurveyResultAPIController');
+        Route::post('/survey/upload-file', 'SurveyResultAPIController@uploadFile');
     }
 );
