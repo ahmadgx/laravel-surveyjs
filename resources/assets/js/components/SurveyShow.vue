@@ -40,6 +40,12 @@
         mounted () {
 
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             this.survey.onUploadFiles
                 .add(function (survey, options) {
                     options
@@ -48,7 +54,7 @@
                             var formData = new FormData();
                             formData.append("file", file);
                             $.ajax({
-                                url: `/survey/uploadFile`,
+                                url: `/survey/upload-file`,
                                 type: "POST",
                                 success: function (data) {
                                     console.log(data);
