@@ -96,6 +96,7 @@
                         this.nameField = false;
                         this.$root.snackbarMsg = response.data.message;
                         this.$root.snackbar = true;
+                        this.branch_name = response.data.branch_name;
                     })
                     .catch((error) => {
                         console.error(error.response);
