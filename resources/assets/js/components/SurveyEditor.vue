@@ -31,11 +31,6 @@
             </v-flex>
 
 
-
-
-
-
-
             <v-toolbar-items v-if="nameField">
                 <v-btn small flat color="primary" @click.prevent="postEdit">Save</v-btn>
                 <v-btn small flat color="warning" @click.prevent="onCancelEdit">Cancel</v-btn>
@@ -82,7 +77,7 @@
                         this.survey = response.data.data;
                         this.surveyName = response.data.data.name;
                         this.branch_id = response.data.data.branch_id;
-                        this.branch_name = response.data.data.branch.name;
+                        this.branch_name = response.data.data.branch_name;
                         //this.surveySlug = this.$router.toPath('/' + SurveyConfig.route_prefix + '/' + response.data.data.slug);
                         var path_show = new URL(location.href);
                         this.surveySlug = path_show.origin + '/' + SurveyConfig.route_prefix + '/' + response.data.data.slug;
