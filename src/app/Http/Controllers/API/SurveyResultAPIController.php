@@ -4,34 +4,34 @@ namespace AidynMakhataev\LaravelSurveyJs\app\Http\Controllers\API;
 
 use AidynMakhataev\LaravelSurveyJs\app\Http\Resources\SurveyResource;
 use AidynMakhataev\LaravelSurveyJs\app\Http\Resources\SurveyResultResource;
-use AidynMakhataev\LaravelSurveyJs\app\Models\Survey;
+use AidynMakhataev\LaravelSurveyJs\app\Models\Form;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
 class SurveyResultAPIController extends Controller
 {
-    public function index(Survey $survey)
+    public function index(Form $form)
     {
-        $results = $survey->results()->paginate(config('survey-manager.pagination_perPage', 10));
+        $results = $form->results()->paginate(config('form-manager.pagination_perPage', 10));
 
         return SurveyResultResource::collection($results)
                 ->additional(['meta' => [
-                    'survey'    =>  new SurveyResource($survey),
+                    'survey'    =>  new SurveyResource($form),
                 ]]);
     }
 
     /**
-     * @param Survey $survey
+     * @param Form $survey
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Survey $survey, Request $request)
+    public function store(Form $form, Request $request)
     {
         $request->validate([
             'json'  =>  'required',
         ]);
 
-        $result = $survey->results()->create([
+        $result = $form->results()->create([
             'json'          =>  $request->input('json'),
             'user_id'       =>  \Auth::check() ? \Auth::id() : null,
             'ip_address'    =>  $request->ip(),
@@ -39,7 +39,7 @@ class SurveyResultAPIController extends Controller
 
         return response()->json([
             'data'      =>  new SurveyResultResource($result),
-            'message'   =>  'Survey Result successfully created',
+            'message'   =>  'Form Result successfully created',
         ], 201);
     }
 
@@ -58,9 +58,10 @@ class SurveyResultAPIController extends Controller
                 'message'   =>  'File successfully saved',
             ], 201);
         }
+    }
 
-        return response()->json([
-            'data'      =>  '',
-        ], 500);
+
+    public function backEndValidation(Request $request){
+
     }
 }

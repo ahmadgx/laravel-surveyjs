@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Survey | {{$survey->name}}</title>
+    <title>Form | {{$survey->name}}</title>
     <meta name="csrf-token" content="{{csrf_token()}}">
     <link rel="stylesheet" href="https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
@@ -31,7 +31,7 @@
     </div>
 
     <script>
-        window.SurveyConfig = {!! json_encode(config('survey-manager')) !!};
+        window.SurveyConfig = {!! json_encode(config('form-manager')) !!};
     </script>
     <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
     <script src="{{ asset('vendor/survey-manager/js/survey-front.js') }}"></script>

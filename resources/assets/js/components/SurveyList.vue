@@ -1,10 +1,10 @@
 <template>
     <div>
         <v-toolbar>
-            <v-toolbar-title>List of all available surveys</v-toolbar-title>
+            <v-toolbar-title>List of all available forms</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-dialog flat v-model="dialog" max-width="500px" content-class="remove-overflow">
-                <v-btn slot="activator" color="primary" dark class="mb-2">New Survey</v-btn>
+                <v-btn slot="activator" color="primary" dark class="mb-2">New Form</v-btn>
                 <v-card>
                     <v-card-title>
                         <span class="headline">{{ formTitle }}</span>
@@ -15,7 +15,7 @@
                                 <v-flex xs12>
                                     <v-text-field
                                             v-model="editedItem.name"
-                                            label="Survey name"
+                                            label="Form name"
                                             :rules="[
                                             () => !!editedItem.name || 'The field name is required',
                                             () => !!editedItem.name && editedItem.name.length >= 3 || 'Name must contain at least 3 character!',
@@ -23,6 +23,15 @@
                                     >
 
                                     </v-text-field>
+                                    <!--branch list-->
+                                    <select  label="Select Branch"  v-model='editedItem.branch_id' name="branch_id"
+                                             :rules="[
+                                            () => !!branch_id || 'The field branch is required',
+                                            ]">
+                                        <option value='0' >Select Branch</option>
+                                        <option v-for='data in branches' :value='data.id'>{{ data.name }}</option>
+                                    </select>
+                                    <!-- end branch list-->
                                 </v-flex>
                             </v-layout>
                         </v-container>
@@ -30,7 +39,7 @@
                     <v-card-actions>
                         <v-spacer></v-spacer>
                         <v-btn color="blue darken-1" flat @click.native="onCloseModal">Cancel</v-btn>
-                        <v-btn color="blue darken-1" flat @click.native="onSaveModal(editedItem.name)">Save</v-btn>
+                        <v-btn color="blue darken-1" flat @click.native="onSaveModal(editedItem.name,editedItem.branch_id)">Save</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -45,6 +54,7 @@
             <template slot="items" slot-scope="props">
                 <td class="text-sm-left">{{ props.item.id }}</td>
                 <td class="text-sm-left">{{ props.item.name }}</td>
+                <td class="text-sm-left">{{ props.item.branch.name }}</td>
                 <td class="text-sm-left">{{ props.item.created_at}}</td>
                 <td class="justify-center layout px-0">
                     <v-btn icon class="mx-0" @click="runSurvey(props.item.slug)">
@@ -81,7 +91,12 @@
                 pageLength: 1,
                 dialog: false,
                 loading: false,
-                formTitle: 'New Survey',
+                //branch list
+                branch_id: 0,
+                branch_name: '',
+                branches: [],
+                //
+                formTitle: 'New Form',
                 headers: [
                     {
                         text: 'ID',
@@ -92,6 +107,11 @@
                     {
                         text: 'Name',
                         value: 'name',
+                        sortable: false
+                    },
+                    {
+                        text: 'Branch',
+                        value: 'branch',
                         sortable: false
                     },
                     {
@@ -106,7 +126,8 @@
                     }
                 ],
                 editedItem: {
-                    name: ''
+                    name: '',
+                    branch_id: 0,
                 },
 
             }
@@ -122,7 +143,7 @@
         methods: {
             getSurveys() {
                 this.loading = true;
-                axios.get('/survey', {
+                axios.get('/form', {
                     params: {
                         page: this.page
                     }
@@ -143,9 +164,9 @@
                 this.$router.push({name: 'editor', params: {id: id}})
             },
             deleteItem(item) {
-                if(confirm('Are you sure you want to delete this survey?')) {
+                if(confirm('Are you sure you want to delete this form?')) {
                     this.snackbar = true;
-                    axios.delete('/survey/' + item.id)
+                    axios.delete('/form/' + item.id)
                         .then((response) => {
                             if(response.status === 200) {
                                 this.$root.snackbarMsg = response.data.message;
@@ -160,15 +181,16 @@
                 this.dialog = false;
                 this.editedItem = Object.assign({}, {name: ''})
             },
-            onSaveModal(name) {
+            onSaveModal(name,branch_id) {
                 this.loading = true;
                 let data = {
                     name: name,
+                    branch_id: branch_id,
                     json: {
                         pages: []
                     }
                 };
-                axios.post('/survey', data)
+                axios.post('/form', data)
                     .then((response) => {
                         if(response.status === 201) {
                             this.dialog = false;
@@ -185,7 +207,24 @@
             },
             showResults(id) {
                 this.$router.push({name: 'result', params: {id: id} })
-            }
+            },
+            getBranches: function(){
+
+                axios.get('/get-branches')
+
+                    .then(function (response) {
+
+                        this.branches = response.data;
+
+                    }.bind(this));
+            },
+
+
+        },
+        created: function(){
+
+            this.getBranches()
+
         }
     }
 </script>

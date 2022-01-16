@@ -4,7 +4,7 @@
             <v-btn icon class="mb-3" @click.native = "$router.push({name: 'home'})">
                 <v-icon large>home</v-icon>
             </v-btn>
-            <v-toolbar-title>Survey #{{surveyId}} Results</v-toolbar-title>
+            <v-toolbar-title>Form #{{surveyId}} Results</v-toolbar-title>
         </v-toolbar>
         <v-data-table
                 :headers="headers"
@@ -18,7 +18,7 @@
                     <td class="text-sm-left">{{ props.item.ip_address }}</td>
                     <td class="text-sm-left">{{ props.item.created_at}}</td>
                     <td class="text-sm-left layout px-0">
-                        <v-btn slot="activator" color="primary" dark @click.native.stop="showSurvey(props.item)">Show in Survey</v-btn>
+                        <v-btn slot="activator" color="primary" dark @click.native.stop="showSurvey(props.item)">Show in Form</v-btn>
                     </td>
             </template>
             <template slot="no-data">
@@ -117,7 +117,7 @@
         methods: {
             getSurveyResults(id = this.surveyId) {
                 this.loading = true;
-                axios.get('/survey/' + id + '/result?page=' + this.page)
+                axios.get('/form/' + id + '/result?page=' + this.page)
                     .then((response) => {
                         this.results = response.data.data;
                         this.survey = response.data.meta.survey;

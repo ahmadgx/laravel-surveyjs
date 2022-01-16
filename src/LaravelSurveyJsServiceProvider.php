@@ -36,7 +36,7 @@ class LaravelSurveyJsServiceProvider extends ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/survey-manager.php', 'survey-manager'
+            __DIR__.'/../config/form-manager.php', 'form-manager'
         );
     }
 
@@ -47,13 +47,13 @@ class LaravelSurveyJsServiceProvider extends ServiceProvider
      */
     public function provides()
     {
-        return ['survey-manager'];
+        return ['form-manager'];
     }
 
     private function definePublishable()
     {
         $this->publishes([
-            __DIR__.'/../config/survey-manager.php' => config_path('survey-manager.php'),
+            __DIR__.'/../config/form-manager.php' => config_path('form-manager.php'),
         ]);
 
         $this->publishes([
