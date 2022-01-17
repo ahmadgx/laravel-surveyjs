@@ -72,7 +72,7 @@
         },
         methods: {
             getSurvey(id) {
-                axios.get('/form/' + id)
+                axios.get('/api/form/' + id)
                     .then((response) => {
                         this.survey = response.data.data;
                         this.surveyName = response.data.data.name;
@@ -91,7 +91,7 @@
                 this.surveyName = this.survey.name;
             },
             postEdit() {
-                axios.put('/form/' + this.survey.id, {name: this.surveyName,branch_id: this.branch_id})
+                axios.put('/api/form/' + this.survey.id, {name: this.surveyName,branch_id: this.branch_id})
                     .then((response) => {
                         this.nameField = false;
                         this.$root.snackbarMsg = response.data.message;
@@ -104,7 +104,7 @@
             },
             getBranches: function(){
 
-                axios.get('/get-branches')
+                axios.get('/api/get-branches')
 
                     .then(function (response) {
 

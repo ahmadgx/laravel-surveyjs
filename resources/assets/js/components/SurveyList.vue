@@ -143,7 +143,7 @@
         methods: {
             getSurveys() {
                 this.loading = true;
-                axios.get('/form', {
+                axios.get('/api/form', {
                     params: {
                         page: this.page
                     }
@@ -166,7 +166,7 @@
             deleteItem(item) {
                 if(confirm('Are you sure you want to delete this form?')) {
                     this.snackbar = true;
-                    axios.delete('/form/' + item.id)
+                    axios.delete('/api/form/' + item.id)
                         .then((response) => {
                             if(response.status === 200) {
                                 this.$root.snackbarMsg = response.data.message;
@@ -190,7 +190,7 @@
                         pages: []
                     }
                 };
-                axios.post('/form', data)
+                axios.post('/api/form', data)
                     .then((response) => {
                         if(response.status === 201) {
                             this.dialog = false;
@@ -210,7 +210,7 @@
             },
             getBranches: function(){
 
-                axios.get('/get-branches')
+                axios.get('/api/get-branches')
 
                     .then(function (response) {
 

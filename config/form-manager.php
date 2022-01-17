@@ -12,7 +12,7 @@ return [
     'route_prefix'              =>  'form',
 
     // The prefix used in api endpoints
-    'api_prefix'                =>  'api',
+    'api_prefix'                =>  '',
 
     // The prefix used in admin route
     'admin_prefix'              =>  'admin',

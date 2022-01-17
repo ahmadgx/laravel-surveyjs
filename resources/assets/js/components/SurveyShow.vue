@@ -109,7 +109,7 @@
 
             this.survey.onComplete.add((result) => {
                 // console.log(result)
-                let url = `/form/${this.surveyData.id}/result`
+                let url = `/api/form/${this.surveyData.id}/result`
                 axios.post(url, {json: result.data})
                     .then((response) => {
                         console.log(response)

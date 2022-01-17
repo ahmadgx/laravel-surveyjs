@@ -40,7 +40,7 @@
             this.editor.text = JSON.stringify(this.surveyData);
             let self = this;
             this.editor.saveSurveyFunc = function () {
-                axios.put('/form/' + self.id, {json: JSON.parse(this.text)})
+                axios.put('/api/form/' + self.id, {json: JSON.parse(this.text)})
                     .then((response) => {
                         self.editor.text = JSON.stringify(response.data.data.json);
                         self.$root.snackbar = true;

@@ -117,7 +117,7 @@
         methods: {
             getSurveyResults(id = this.surveyId) {
                 this.loading = true;
-                axios.get('/form/' + id + '/result?page=' + this.page)
+                axios.get('/api/form/' + id + '/result?page=' + this.page)
                     .then((response) => {
                         this.results = response.data.data;
                         this.survey = response.data.meta.survey;
