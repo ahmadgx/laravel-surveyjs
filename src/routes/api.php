@@ -4,7 +4,7 @@ Route::group(
     [
         'namespace'     =>  'AidynMakhataev\LaravelSurveyJs\app\Http\Controllers\API',
         'middleware'    =>  config('form-manager.api_middleware'),
-        'prefix'        =>  config('form-manager.api_prefix'),
+        'prefix'        =>  'api',
     ],
     function () {
         Route::resource('/form', 'SurveyAPIController', ['only' => [
