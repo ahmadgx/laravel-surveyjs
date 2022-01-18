@@ -25,6 +25,7 @@ class CreateSurveyRequest extends FormRequest
     {
         return [
             'name'  =>  'required|max:255',
+            'branch_id'  =>  'required|numeric|exists:branches,id',
         ];
     }
 }
