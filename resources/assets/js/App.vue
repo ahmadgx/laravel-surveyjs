@@ -1,9 +1,6 @@
 <template>
     <v-app>
         <v-card flat>
-            <v-toolbar dark color="primary" flat extended>
-                <v-toolbar-title>Form Manager</v-toolbar-title>
-            </v-toolbar>
             <v-layout row pb-2>
                 <v-flex xs8 offset-xs2>
                     <v-card class="card--flex-toolbar">
