@@ -89,6 +89,8 @@
             onCancelEdit() {
                 this.nameField = false;
                 this.surveyName = this.survey.name;
+                this.branch_id = this.survey.branch_id;
+                this.branch_name = this.survey.branch_name;
             },
             postEdit() {
                 axios.put('/api/form/' + this.survey.id, {name: this.surveyName,branch_id: this.branch_id})

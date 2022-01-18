@@ -179,7 +179,7 @@
             },
             onCloseModal() {
                 this.dialog = false;
-                this.editedItem = Object.assign({}, {name: ''})
+                this.editedItem = Object.assign({}, {name: '',branch_id: 0})
             },
             onSaveModal(name,branch_id) {
                 this.loading = true;
@@ -197,7 +197,7 @@
                             this.loading = false;
                             this.$root.snackbarMsg = response.data.message;
                             this.$root.snackbar = true;
-                            this.editedItem = Object.assign({}, {name: ''});
+                            this.editedItem = Object.assign({}, {name: '',branch_id: 0});
                             this.getSurveys();
                         }
                     })
