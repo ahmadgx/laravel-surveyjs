@@ -30,6 +30,6 @@ class UpdateFormsTable extends Migration
      */
     public function down()
     {
-        Schema::dropColumns('branch_id');
+        Schema::dropColumns('forms','branch_id');
     }
 }

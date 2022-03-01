@@ -19,6 +19,8 @@ class CreateFormResultsTable extends Migration
             $table->unsignedInteger('user_id')->nullable();
             $table->string('ip_address')->nullable();
             $table->json('json');
+            $table->string('email');
+            $table->string('language',3)->default('en');
             $table->timestamps();
         });
     }

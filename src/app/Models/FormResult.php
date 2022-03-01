@@ -8,7 +8,7 @@ class FormResult extends Model
 {
     protected $table = 'form_results';
     protected $fillable = [
-        'form_id', 'user_id', 'ip_address', 'json',
+        'form_id', 'user_id', 'ip_address', 'json','email','language'
     ];
     protected $casts = [
         'json'  =>  'array',
@@ -28,5 +28,14 @@ class FormResult extends Model
     public function user()
     {
         return $this->belongsTo(config('form-manager.user_model'), 'user_id');
+    }
+
+    /**
+     * @param $value
+     * @return string
+     */
+    public function setLangAttribute($value)
+    {
+        return $value ? $value : 'en';
     }
 }
