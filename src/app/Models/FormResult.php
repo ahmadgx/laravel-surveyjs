@@ -34,7 +34,7 @@ class FormResult extends Model
      * @param $value
      * @return string
      */
-    public function setLangAttribute($value)
+    public function setlanguageAttribute($value)
     {
         return $value ? $value : 'en';
     }
